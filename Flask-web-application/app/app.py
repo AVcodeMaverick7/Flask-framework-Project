@@ -8,11 +8,11 @@ import pyodbc,psycopg2
 
 
 # CREATE FLASK APP INSTANCE
-app = Flask(__name__,template_folder='D:/SAPIENZA/COMPANIES/ProceedIt/Flutter/vscode_projects/har_ml_component/app/templates/')
+app = Flask(__name__,template_folder='/har_ml_component/app/templates/')
 
 # ------------- ORIGINAL DATASET -------------------------------------------------------------
 
-subset = pd.read_csv(r'D:\SAPIENZA\COMPANIES\ProceedIt\Flutter\vscode_projects\har_ml_component\datasets\subset_ch_copy.csv')
+subset = pd.read_csv(r'\har_ml_component\datasets\subset_ch_copy.csv')
 
 # CALCULATE MEAN & STANDARD DEVIATION OF ORIGINAL DATASET
 def column_mean_std(dataset):
@@ -54,10 +54,6 @@ servername_postgre = 'localhost'
 database_postgre   = 'proceedit_har'
 password_postgre   = '.'
 
-# dyDATA Server
-# servername_postgre = '18.184.42.152'
-# database_postgre   = 'dyHEALTH_proceedit_har'
-# password_postgre   = 'Proc017postgres'
 
 username_postgre   = 'postgres'
 port_postgre       = '5432'
@@ -285,11 +281,11 @@ def heart_risk_flutter_api():
 if __name__ == '__main__':
 
     # LOAD MODEL
-    load_model = 'D:/SAPIENZA/COMPANIES/ProceedIt/Flutter/vscode_projects/har_ml_component/joblib_files/proceedit_ml_heart_risk_pred.sav'
+    load_model = '/har_ml_component/joblib_files/ml_heart_risk_pred.sav'
     model_output = jbl.load(load_model)
 
     # NEURAL NETWORK
-    # tensor_model = 'D:/SAPIENZA/COMPANIES/ProceedIt/Flutter/vscode_projects/har_ml_component/joblib_files/harp_orig_model.h5'
+    # tensor_model = '/har_ml_component/joblib_files/harp_orig_model.h5'
     # tensor_output = tensorflow.keras.models.load_model(tensor_model)
 
     

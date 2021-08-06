@@ -7,12 +7,13 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 url = 'http://127.0.0.1:5000/request_api'
 
-dat = pd.read_csv(r'D:\SAPIENZA\COMPANIES\ProceedIt\Flutter\vscode_projects\har_ml_component\datasets\subset_ch_copy.csv')
+dat = pd.read_csv(r'\har_ml_component\datasets\subset_ch_copy.csv')
 
 
 X = dat.drop('NUM',axis=1)
 X = X.values
 
+# Just feeding a sample data
 data = [(X[102]).tolist()] #23
 
 print('PRINTING INPUT DATA')

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+
+<style>
+    body {background-color: palegoldenrod;
+          margin: auto;
+          }
+    h1   {color: blue;}
+    p    {color: black;}
+
+    table {
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #4a4a4d;
+    font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* white-space: nowrap; */
+  }
+  th,
+  td {
+    padding: 10px 15px;
+    vertical-align: middle;
+  }
+
+  th:first-child {
+    text-align: left;
+  }
+
+  td:scope{
+      color: blue;
+  }
+  
+  td {
+    border-bottom: 1px solid #cecfd5;
+    border-right: 1px solid #cecfd5;
+  }
+  td:first-child {
+    border-left: 1px solid #cecfd5;
+  }
+
+
+/* Create three equal columns that floats next to each other*/
+.column {
+  float: left;
+  width: 15%;
+  padding: 15px;
+  height: 100px; /*Should be removed. Only for demonstration*/
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+section{
+  margin: auto;
+}
+
+</style>
+
+<!-- <link rel="stylesheet" href="/app/templates/styles.css"> -->
+
+<head>
+  <meta charset="UTF-8">
+  <title> Heart attack Risk </title>
+  <h1>HEART ATTACK RISK CALCULATOR</h1>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<b>FEATURE VALUE RANGE</b>
+<section class="child">
+  <div class="row" style="width: fit-content, float left;margin: 5px;background-color: lightgreen;">
+    <table>
+      <div class="column" >
+              <li>CHOL     : Cholesterol mg/DL </li>
+              <li>CP       : 1, 2, 3, 4 </li>
+              <li>CIGS     : 0,1,2,3....</li>
+              <li>YEARS    : 0,1,2,3....</li>
+              <li>PAINEXER : 0 = NO,1 = YES </li>
+        </div>
+        <div class="column" >
+              <li>RELREST  : 0 = NO,1 = YES </li>
+              <li>PROTO    : 1 to 12</li>
+              <li>OLDPEAK  : 0 to 6.2</li>
+              <li>CXMAIN   : 0 = NO,1 = YES </li>
+              <li>CA       : 0,1,2,3 </li>
+        </div>
+        <div class="column" >
+              <li>THALDUR  : time in min</li>
+              <li>THALTIME : peak of ST</li>
+              <li>LADDIST  : 0 = NO,1 = YES</li>
+              <li>RCAPROX  : 0 = NO,1 = YES</li>
+        </div>
+        <div class="column">
+          <li>LADPROX  : 0 = NO,1 = YES </li>
+          <li>EXANG    : 0 = NO,1 = YES </li>
+          <li>OM1      : 0 = NO,1 = YES</li>
+          <li>THALACH  : max heart rate </li>
+          <li>RLDV5E   : height at peak </li>
+        </div>
+        <div class="column" >
+          <li> RESTECG : 0 = Normal, 1 = Abnormal, 2 = Prob or Definite</li>
+          <li> SLOPE   : 1 = Upslope, 2 = Flat, 3 = Downslope</li>
+          <li>THAL     : 3 = Normal, 6 = Fixed Defect,7= Reversable Defect</li>
+        </div>
+    </table>
+  </div>
+</section>
+   <section class="child">
+    <div class="login">
+
+      <!-- Main Input For Receiving Query to our ML -->
+     <form action="{{ url_for('heart_risk_webform')}}" method="post">
+ 
+         <!-- 'CHOL','CP','CIGS','YEARS','PAINEXER','RELREST','PROTO','OLDPEAK','CXMAIN','CA',\
+                                   'THALDUR','THAL','THALTIME','LADDIST','RCAPROX','LADPROX',
+                                   'EXANG','THALACH','SLOPE', 'RLDV5E','OM1','NUM'] -->
+ 
+                                   <!-- [286,4,0,0,0,0,0,1.5,2,3,9.5,3,6,2,1,2,1,108,2,185,1] -->
+ 
+         <table>
+ 
+         <tr>
+                 <td scope="col"><b><span style="color:purple;">FEATURE NAME</span></b></td>
+                 <td scope="col"><b><span style="color:purple;">VALUE</span></b></td>
+                 <td></td>
+                 <td scope="col"><b><span style="color:purple;">FEATURE NAME</span></b></td>
+                 <td scope="col"><b><span style="color:purple;">VALUE</span></b></td>
+         </tr>
+
+         <tr>
+             <td><label for="CHOL">CHOLESTEROL</label></td>
+             <td><input type="text" name="CHOL" placeholder="CHOL" size="20" required='required'></td>
+             <td></td>
+             <td><label for="CP">CHEST PAIN </label></td>
+             <td><input type="text" name="CP" placeholder="CP" size="20" required='required'></td> 
+         </tr>
+ 
+         <tr>
+             <td><label for="CIGS"> NUMBER OF CIGARETTES PER DAY </label></td>
+             <td><input type="text" name="CIGS" placeholder="CIGS" size="20" required='required'></td>
+             <td></td>
+             <td><label for="YEARS">NUMBER OF YEARS </label></td>
+             <td><input type="text" name="YEARS" placeholder="YEARS" size="20" required='required'></td>
+         </tr>
+ 
+         <tr>
+             <td><label for="PAINEXER">PAIN EXERTION </label></td>
+             <td><input type="text" name="PAINEXER" placeholder="PAINEXER" size="20" required='required'></td>
+             <td> </td>
+             <td><label for="RELREST">RELIEVED AFTER REST</label></td>
+             <td><input type="text" name="RELREST" placeholder="RELREST" size="20" required='required'></td>
+         </tr>
+
+         <tr>
+             <td><label for="RESTECG">RESTING ECG RESULTS </label></td>
+             <td><input type="text" name="RESTECG" placeholder="RESTECG" size="20" required='required'></td>
+             <td></td>
+             <td><label for="PROTO">EXERCISE PROTOCOL </label></td>
+             <td><input type="text" name="PROTO" placeholder="PROTO" size="20" required='required'></td>
+         </tr>
+
+         <tr>
+             <td><label for="OLDPEAK">ST DEPRESSION BY EXERCISE</label></td>
+             <td><input type="text" name="OLDPEAK" placeholder="OLDPEAK" size="20" required='required'></td>
+             <td></td>
+             <td><label for="CXMAIN">CIRCUM FLEX </label></td>
+             <td><input type="text" name="CXMAIN" placeholder="CXMAIN" size="20" required='required'></td>               
+         </tr>
+
+         <tr>
+             <td><label for="CA">NO. OF MAJOR VESSELS</label></td>
+             <td><input type="text" name="CA" placeholder="CA" size="20" required='required'></td>
+             <td></td>
+             <td><label for="THALDUR">DURATION OF EXERCISE IN MINUTES </label></td>
+             <td><input type="text" name="THALDUR" placeholder="THALDUR" size="20" required='required'></td>
+         </tr>
+ 
+         <tr>
+          
+             <td><label for="THAL">BLOOD THALASSEMIA </label></td>
+             <td><input type="text" name="THAL" placeholder="THAL" size="20" required='required'></td>
+             <td></td>
+             <td><label for="THALTIME">TIME OF ST DEPRESSION</label></td>
+             <td><input type="text" name="THALTIME" placeholder="THALTIME" size="20" required='required'></td>
+
+         </tr>
+ 
+         <tr>
+             <td><label for="LADDIST">DISTAL LEFT ANTERIOR DESCENDING</label></td>             
+             <td><input type="text" name="LADDIST" placeholder="LADDIST" size="20" required='required'></td>
+             <td></td>
+             <td><label for="RCAPROX">PROXIMAL RIGHT CORONARY ARTERY</label></td>
+             <td><input type="text" name="RCAPROX" placeholder="RCAPROX" size="20" required='required'></td>
+         </tr>
+ 
+         <tr>
+          
+             <td><label for="LADPROX">PROXIMAL LEFT ANTERIOR DESCENDING ARTERY </label></td>
+             <td><input type="text" name="LADPROX" placeholder="LADPROX" size="20"  required='required'></td>
+             <td></td>
+             <td><label for="EXANG">EXERCISE INDUCED ANGINA</label></td>
+             <td><input type="text" name="EXANG" placeholder="EXANG" size="20" required='required'></td>
+             
+             
+ 
+         </tr>
+ 
+         <tr>
+             <td><label for="THALACH">MAXIMUM HEART RATE ACHIEVED</label></td>
+             <td><input type="text" name="THALACH" placeholder="THALACH" size="20" required='required'></td>
+             <td></td>
+             <td><label for="SLOPE">SLOPE AT PEAK EXERCISE</label></td>
+             <td><input type="text" name="SLOPE" placeholder="SLOPE" size="20" required='required'></td>
+
+         </tr>
+ 
+         <tr>
+             <td><label for="RLDV5E">HEIGHT AT PEAK EXERCISE</label></td>
+             <td><input type="text" name="RLDV5E" placeholder="RLDV5E" size="20" required='required'></td>
+             <td></td>
+             <td><label for="OM1">FIRST OBTUSE MARGINAL BRANCH</label></td>
+             <td><input type="text" name="OM1" placeholder="OM1" size="20" required='required'></td>
+         </tr>                         
+         
+      </table>                                  	
+      <table>
+          
+          <th>
+              
+              <label for="submit"><h2><b><span style="color: green;">CALCULATE RESULTS</span></b></h2></label>
+          
+          </th>
+    
+          <th>
+    
+              <td><button type="submit" class="btn btn-primary btn-block btn-large">Predict</button></td>
+    
+              <td><label for="result"></label><p><b><span style="color: red;">{{prediction_text}}</span></b></p></td>
+    
+          </th>
+ 
+      </table>
+ 
+  </form>
+ 
+</div>
+   </section>
+
+</body>
+
+</html> 

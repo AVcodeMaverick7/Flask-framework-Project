@@ -1,0 +1,12 @@
+{
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.confirmOnExit": true,
+    "python.pythonPath": "C:\\Users\\alevi\\Anaconda3\\python.exe",
+    "python.autoComplete.addBrackets": true,
+    "python.linting.enabled": true,
+
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "terminal.integrated.shellArgs.windows": ["/K", "x:\\xxx\\Anaconda3\\Scripts\\activate.bat x:\\xxx\\Anaconda3"],
+    "python.condaPath": "x:\\xxx\\Anaconda3\\Scripts\\conda.exe",
+    "python.linting.pylintPath": "C:\\Users\\alevi\\Anaconda3\\Scripts\\pylint.exe"
+}
